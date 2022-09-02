@@ -6,3 +6,25 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
+
+model user {
+  id         Int      @id @default(autoincrement())
+  chat_id    String   @unique
+  phone      String?
+  first_name String?
+  last_name  String?
+  role       String   @default("user")
+  date       DateTime @default(now())
+}
+
+model city {
+  id         Int     @id @default(autoincrement())
+  latitude   String?
+  longityde  String?
+  region     String?
+  sub_region String?
+  city       String?
+  address    String?
+  places     String?
+  price      String?
+}
