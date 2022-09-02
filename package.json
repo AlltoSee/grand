@@ -4,8 +4,8 @@
   "description": "Телеграм бот",
   "main": "bot.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js"
+    "start": "node bot.js",
+    "dev": "nodemon bot.js"
   },
   "repository": {
     "type": "git",
