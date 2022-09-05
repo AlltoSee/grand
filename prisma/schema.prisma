@@ -15,6 +15,7 @@ model user {
   last_name  String?
   role       String   @default("user")
   date       DateTime @default(now())
+  orders     orders[]
 }
 
 model city {
@@ -27,4 +28,20 @@ model city {
   address    String?
   places     String?
   price      String?
+}
+
+model orders {
+  id          Int      @id @default(autoincrement())
+  status      String   @default("driver_search")
+  from        Json?
+  to          Json?
+  order_price String
+  expectation String   @default("0")
+  price       String
+  driver      Json?
+  comment     String?
+  Other       Json?
+  date        DateTime @default(now())
+  user        user?    @relation(fields: [userId], references: [id])
+  userId      Int?
 }
