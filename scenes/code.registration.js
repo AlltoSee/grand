@@ -1,19 +1,17 @@
 const { Scenes } = require("telegraf")
-const { replyPhoto } = require("../src/reply")
+const { replyPhoto, reply } = require("../src/reply")
 
 const TEMPLATE = require("../template/ru")
 const KEYBOARD = require("../keyboards")
 
-const scene = new Scenes.BaseScene("NEW_USER_SCENE")
+const scene = new Scenes.BaseScene("CODE_REGISTRATION_SCENE")
 scene.enter(ctx => {
 	try {
-		ctx.session.user = {}
-		ctx.session.user.message_id = []
 		replyPhoto(
 			ctx,
 			"./image/main.jpg",
-			TEMPLATE.REGISTRATION_MESSAGE,
-			KEYBOARD.REGISTRATION_BUTTON
+			TEMPLATE.CODE_REGISTRATION_MESSAGE(1),
+			KEYBOARD.CODE_REGISTRATION_BUTTON
 		)
 	} catch (err) {
 		console.log(err)
@@ -27,12 +25,8 @@ scene.on("message", (ctx, next) => {
 
 scene.on("text", (ctx, next) => {
 	if (ctx.message.text.slice(0, 1) === "/") return next()
-	if (ctx.message.text === TEMPLATE.REGISTRATION_BUTTON) {
-		ctx.scene.enter("PHONE_REGISTRATION_SCENE")
-	}
-	if (ctx.message.text === TEMPLATE.ABOUT_BUTTON) {
-		ctx.reply(TEMPLATE.ABOUT_MESSAGE)
-	}
+	// Проверка кода
+	// Повториь звонок
 })
 
 module.exports = scene
