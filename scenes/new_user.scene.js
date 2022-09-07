@@ -7,7 +7,6 @@ const KEYBOARD = require("../keyboards")
 const scene = new Scenes.BaseScene("NEW_USER_SCENE")
 scene.enter(ctx => {
 	try {
-		ctx.session.user = {}
 		ctx.session.user.message_id = []
 		replyPhoto(
 			ctx,
@@ -26,12 +25,16 @@ scene.on("message", (ctx, next) => {
 })
 
 scene.on("text", (ctx, next) => {
-	if (ctx.message.text.slice(0, 1) === "/") return next()
-	if (ctx.message.text === TEMPLATE.REGISTRATION_BUTTON) {
-		ctx.scene.enter("PHONE_REGISTRATION_SCENE")
-	}
-	if (ctx.message.text === TEMPLATE.ABOUT_BUTTON) {
-		ctx.reply(TEMPLATE.ABOUT_MESSAGE)
+	try {
+		if (ctx.message.text.slice(0, 1) === "/") return next()
+		if (ctx.message.text === TEMPLATE.REGISTRATION_BUTTON) {
+			ctx.scene.enter("PHONE_REGISTRATION_SCENE")
+		}
+		if (ctx.message.text === TEMPLATE.ABOUT_BUTTON) {
+			ctx.reply(TEMPLATE.ABOUT_MESSAGE)
+		}
+	} catch (err) {
+		console.log(err)
 	}
 })
 

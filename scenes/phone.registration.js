@@ -50,6 +50,9 @@ scene.on("text", (ctx, next) => {
 			.replace(/^[78]?/, "+7")
 
 		// функция вызова SMS.RU
+		const call_code = "5767"
+		ctx.session.user.call_code = call_code
+
 		ctx.scene.enter("CODE_REGISTRATION_SCENE")
 	} catch (err) {
 		console.log(err)

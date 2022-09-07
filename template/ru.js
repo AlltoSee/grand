@@ -10,6 +10,11 @@ module.exports = {
 	PHONE_REGISTRATION_BUTTON: "Поделиться номером",
 	CODE_REGISTRATION_MESSAGE: int =>
 		`<b>Напишите код.</b>\nВ течение минуты вам поступит звонок и ваш код это последний четыре цифры.\n\n<i>Пример: +7(987)147-<b>57</b>-<b>67</b>- Ваш код <b>5767</b>\n\nЕсли не поступил звонок попробуйте нажать кнопку <b>"Повторить звонок"</b> через <b>${int} минуту</b> или напишите сюда</i>`,
-	CODE_ERR_REGISTRATION_MESSAGE: "Вы ввели не правильный код",
+	CODE_ERR_REGISTRATION_MESSAGE:
+		"Код не верный, проверти правильность проверочного кода",
+	CODE_OK_REGISTRATION_MESSAGE: "Вы успешно подтвердили номер",
+	CODE_LIMIT_REGISTRATION_MESSAGE:
+		"Привышено допустимое количество попыток. Попробуйте сменить номер или повторить звонок",
 	CODE_REGISTRATION_BUTTON: "Повторить звонок",
+	PHONE_EDIT_REGISTRATION_BUTTON: "Сменить номер",
 }
