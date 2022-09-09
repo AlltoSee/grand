@@ -15,3 +15,11 @@ exports.createUser = async (chat_id, first_name, last_name) => {
 	})
 	return result
 }
+
+exports.updateUser = async (chat_id, phone) => {
+	const result = await prisma.user.update({
+		where: { chat_id },
+		data: { phone: phone },
+	})
+	return result
+}

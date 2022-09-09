@@ -25,4 +25,10 @@ module.exports = {
 		],
 		resize_keyboard: true,
 	},
+	USER_BUTTON: {
+		inline_keyboard: [
+			[{ text: TEMPLATE.TAXI_USER_BUTTON, callback_data: "taxi" }],
+			[{ text: TEMPLATE.SETTINGS_BUTTON, callback_data: "settings" }],
+		],
+	},
 }

@@ -1,5 +1,5 @@
 const { Scenes } = require("telegraf")
-const { replyPhoto } = require("../src/reply")
+const { replyPhoto, reply } = require("../src/reply")
 
 const TEMPLATE = require("../template/ru")
 const KEYBOARD = require("../keyboards")
@@ -31,7 +31,7 @@ scene.on("text", (ctx, next) => {
 			ctx.scene.enter("PHONE_REGISTRATION_SCENE")
 		}
 		if (ctx.message.text === TEMPLATE.ABOUT_BUTTON) {
-			ctx.reply(TEMPLATE.ABOUT_MESSAGE)
+			reply(ctx, TEMPLATE.ABOUT_MESSAGE, null)
 		}
 	} catch (err) {
 		console.log(err)

@@ -19,6 +19,7 @@ bot.start(async ctx => {
 			const user = await createUser(chat_id, first_name, last_name)
 			ctx.session.user = user
 		}
+		ctx.session.user.message_id = []
 		if (!user?.phone) return ctx.scene.enter("NEW_USER_SCENE")
 
 		if (user.role === "user") ctx.scene.enter("USER_SCENE")

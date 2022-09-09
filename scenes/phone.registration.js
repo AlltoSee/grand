@@ -1,5 +1,6 @@
 const { Scenes } = require("telegraf")
 const { replyPhoto, reply } = require("../src/reply")
+const axios = require("axios")
 
 const TEMPLATE = require("../template/ru")
 const KEYBOARD = require("../keyboards")
@@ -8,6 +9,12 @@ const validatePhone = phone => {
 	let regex =
 		/^(\+7|7|8)?[\s\-]?\(?[9][0-9]{2}\)?[\s\-]?[0-9]{3}[\s\-]?[0-9]{2}[\s\-]?[0-9]{2}$/
 	return regex.test(phone)
+}
+
+const getCall = async phone => {
+	return axios.get(
+		`https://sms.ru/code/call?phone=${phone}&ip=-1&api_id=${process.env.SMS_API}`
+	)
 }
 
 const scene = new Scenes.BaseScene("PHONE_REGISTRATION_SCENE")
@@ -29,12 +36,19 @@ scene.on("message", (ctx, next) => {
 	return next()
 })
 
-scene.on("contact", ctx => {
-	console.log(ctx.message.contact.phone_number)
-	// функция вызова SMS.RU
+scene.on("contact", async ctx => {
+	try {
+		const res = await getCall(ctx.message.contact.phone_number)
+		console.log(res.data)
+		ctx.session.user.call_code = res.data.code
+
+		ctx.scene.enter("CODE_REGISTRATION_SCENE")
+	} catch (err) {
+		console.log(err)
+	}
 })
 
-scene.on("text", (ctx, next) => {
+scene.on("text", async (ctx, next) => {
 	try {
 		if (ctx.message.text.slice(0, 1) === "/") return next()
 
@@ -50,8 +64,8 @@ scene.on("text", (ctx, next) => {
 			.replace(/^[78]?/, "+7")
 
 		// функция вызова SMS.RU
-		const call_code = "5767"
-		ctx.session.user.call_code = call_code
+		const res = await getCall(ctx.session.user.phone)
+		ctx.session.user.call_code = res.data.code
 
 		ctx.scene.enter("CODE_REGISTRATION_SCENE")
 	} catch (err) {
