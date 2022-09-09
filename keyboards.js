@@ -15,6 +15,10 @@ module.exports = {
 		resize_keyboard: true,
 	},
 	CODE_REGISTRATION_BUTTON: {
+		keyboard: [[{ text: TEMPLATE.PHONE_EDIT_REGISTRATION_BUTTON }]],
+		resize_keyboard: true,
+	},
+	CODE_TIME_REGISTRATION_BUTTON: {
 		keyboard: [
 			[{ text: TEMPLATE.CODE_REGISTRATION_BUTTON }],
 			[{ text: TEMPLATE.PHONE_EDIT_REGISTRATION_BUTTON }],
