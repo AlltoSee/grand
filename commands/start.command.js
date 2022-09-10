@@ -10,6 +10,7 @@ bot.start(async ctx => {
 		const { first_name, last_name } = ctx.message.chat
 
 		await ctx.deleteMessage(ctx.message.message_id)
+
 		deleteMessage(ctx)
 
 		const user = await findUniqueUser(chat_id)
